@@ -1,4 +1,4 @@
-# marcus-gives-recommender
+# Mary Gives Recommender
 
 This project has been created with Python 3 and can be accessed via a POST endpoint at port 8010
 
