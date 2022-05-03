@@ -10,9 +10,48 @@ def projects_scores_df():
     return df
 
 
-# Reference here if needed
+def test_project_scores():
+    score1 = pd.DataFrame({
+        'id': '1',
+        'socialOverEnv': 'false',
+        'economyOverHealthcare': 'true',
+        'povertyOverEducation': 'true',
+        'targetedOverDiverse': 'true',
+        'managementFees': 'UNDER5',
+        'esgOverAll': 'true',
+        'shortOverLongTerm': 'true',
+        'region': None
+    }, index=[0])
+    score2 = pd.DataFrame({
+        'id': '2',
+        'socialOverEnv': 'false',
+        'economyOverHealthcare': 'false',
+        'povertyOverEducation': 'false',
+        'targetedOverDiverse': 'false',
+        'managementFees': 'OVER5',
+        'esgOverAll': 'false',
+        'shortOverLongTerm': 'false',
+        'region': None
+    }, index=[0])
+    score3 = pd.DataFrame({
+        'id': '3',
+        'socialOverEnv': 'false',
+        'economyOverHealthcare': 'false',
+        'povertyOverEducation': 'false',
+        'targetedOverDiverse': 'false',
+        'managementFees': 'NONE',
+        'esgOverAll': 'false',
+        'shortOverLongTerm': 'false',
+        'region': None
+    }, index=[0])
+    df = pd.concat([score1, score2], ignore_index=True, axis=0)
+    df = pd.concat([df, score3], ignore_index=True, axis=0)
+    return df
+
+
 def recommend_projects_from_ideal_client_project(ideal_project, filter_id):
     project_df = projects_scores_df()
+    # project_df = test_project_scores()
     project_df = pd.concat([project_df, ideal_project], ignore_index=True, axis=0)
     id_col = project_df.pop('id')
     project_df.insert(0, 'id', id_col)
