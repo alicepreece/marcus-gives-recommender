@@ -13,7 +13,6 @@ def projects_scores_df():
 # Reference here if needed
 def recommend_projects_from_ideal_client_project(ideal_project, filter_id):
     project_df = projects_scores_df()
-    project_df.pop('_id')
     project_df = pd.concat([project_df, ideal_project], ignore_index=True, axis=0)
     id_col = project_df.pop('id')
     project_df.insert(0, 'id', id_col)
@@ -25,6 +24,8 @@ def recommend_projects_from_ideal_client_project(ideal_project, filter_id):
             x['shortOverLongTerm']) + ' ' + ' '.join(str(x['region'])),
         axis=1)
 
+    # method for following lines came from:
+    # https://medium.com/analytics-vidhya/metadata-based-recommender-systems-in-python-c6aae213b25c
     count_vec = CountVectorizer(stop_words='english')
     count_vec_matrix = count_vec.fit_transform(project_df['metadata'])
     cosine_sim_matrix = cosine_similarity(count_vec_matrix, count_vec_matrix)

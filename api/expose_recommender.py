@@ -39,7 +39,6 @@ class Recommendation(Resource):
 
 api.add_resource(Recommendation, '/calculateRecommendation')
 
-
 if __name__ == '__main__':
     app.run(port=8010)
 
