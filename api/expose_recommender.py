@@ -34,7 +34,11 @@ class Recommendation(Resource):
             'region': args['region']
         }, index=[0])
         recommendation = calculate.recommend_projects_from_ideal_client_project(new_data, args['id'])
-        return {"R": str(recommendation.array[0])}
+        if recommendation.array[0] != '-1':
+            rec_id = round(recommendation.array[0])
+        else:
+            rec_id = -1
+        return {"R": str(rec_id)}
 
 
 api.add_resource(Recommendation, '/calculateRecommendation')
